@@ -1,12 +1,10 @@
 import pandas as pd
-from pandas.core import indexing
 
 def leerCSV():
-    print("Leyendo csv")
-    return pd.read_csv('data/datos2020.csv', encoding='latin-1')
+    return pd.read_csv('data/datos2020.csv', encoding='cp1252')
 
 def ExportarCSV(dataFrame, nombre):
-    dataFrame.to_csv("CSVExportados/"+nombre+".csv", index=False, encoding='latin-1')
+    dataFrame.to_csv("CSVExportados/"+nombre+".csv", index=False, encoding='cp1252')
 
 #Pregunta 1.1 #Nivel Educativo
 def nivelEducativo(df):
@@ -28,9 +26,6 @@ def InscritosCicloEscolar2019_2020(df):
 
 
 def InscritosCicloEscolar2019_2020_por_Sexo(df):
-    #filterH = df[df.SEXO.isin(['Hombre']) & df.EDAD.notnull()]
-    #filterM = df[df.SEXO.isin(['Mujer']) & df.EDAD.notnull()]
-    
     ExportarCSV(df.loc[:, ['SEXO', 'EDAD']], "004_Inscritos_Ciclo_Escolar_2019_2020_por_Sexo")
 
 
