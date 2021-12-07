@@ -6,18 +6,14 @@ def leerCSV():
 def ExportarCSV(dataFrame, nombre):
     dataFrame.to_csv("CSVExportados/"+nombre+".csv", index=False, encoding='cp1252')
 
-#Pregunta 1.1 #Nivel Educativo
+#Pregunta 1.1 
 def nivelEducativo(df):
-    return df["NIVEL_ACADEMICO"].dropna()
+    ExportarCSV(df["NIVEL_ACADEMICO"].dropna(), "001_NivelAcademico")
 
 
 #Pregunta 1.2
 def SexoYNivelEducativo(df):
-    #Filtro por sexo y nivel educativo no sea vacio
-    filterH = df[df.SEXO.isin(['Hombre']) & df.NIVEL_ACADEMICO.notnull()]
-    filterM = df[df.SEXO.isin(['Mujer']) & df.NIVEL_ACADEMICO.notnull()]
-    ExportarCSV(nivelEducativo(filterH), "001_NivelEducativoHombre")
-    ExportarCSV(nivelEducativo(filterM), "002_NivelEducativoMujer")
+    ExportarCSV(df.loc[:,['SEXO', 'NIVEL_ACADEMICO']], "002_NivelEducativoSexo")
 
 
 #Pregunta 2.1
@@ -26,7 +22,8 @@ def InscritosCicloEscolar2019_2020(df):
 
 
 def InscritosCicloEscolar2019_2020_por_Sexo(df):
-    ExportarCSV(df.loc[:, ['SEXO', 'EDAD']], "004_Inscritos_Ciclo_Escolar_2019_2020_por_Sexo")
+    dfFiltrado = df[df.INSCRITO_CICLO_PASADO.isin(['Si'])]
+    ExportarCSV(dfFiltrado.loc[:, ['SEXO', 'EDAD']], "004_Inscritos_Ciclo_Escolar_2019_2020_por_Sexo")
 
 
 #Pregunta 3.1
